@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 card py-3">
+            <h2 class="mb-3">Номер телефона</h2>
+            <form method="POST" action="{{ url_for('phone_form') }}" class="auth-form">
+                <div class="d-flex flex-column justify-content-around">
+                    <input class="form-control {% if error %}is-invalid{% endif %}" type="phone"
+                        placeholder="Номер телефона" name="phone" required>
+                    {% if error %}
+                    <div class="invalid-feedback">
+                        {{error}}
+                    </div>
+                    {% endif %}
+                    <button type="submit" class="btn btn-success mt-4">Отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    {% if result %}
+    <div class="row justify-content-center alert-success card mt-5 mb-5 ">
+        <h4 class="py-2">Обработанный результат: {{result}}</h4>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

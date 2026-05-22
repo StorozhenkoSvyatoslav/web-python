@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mt-4">{{post.title}}</h1>
+<p class="">{{post.author}}, {{post.date.strftime('%d.%m.%Y')}}</p>
+<div class="pt-2 p-5 img-post m-auto">
+    <img class="card-img-top" src="{{ url_for('static', filename='images/' + post.image_id) }}" alt="Card image cap">
+</div>
+<div class="row mb-3">
+    <p>{{post.text}}</p>
+</div>
+<div class="mb-5">
+    <form action="">
+        <div class="p-3 my-3 bg-light" style="border: 1px solid rgb(175, 175, 175); border-radius: 4px;">
+            <h4 class="my-2 mt-2">Оставьте комментарий</h4>
+            <textarea name="" id="" style="width: 100%; min-height: 5rem; max-height: 10rem;" class="p-2 my-2"
+                placeholder="Напишите что-нибудь..."></textarea>
+            <button type="submit" class="btn btn-primary">Отправить</button>
+        </div>
+    </form>
+    <div class="mt-5 mb-5">
+        {% for com in post.comments %}
+            <div class="" style="border-radius: 10px;">
+                <div class="d-flex justify-content-left align-items-center gap-3 mb-2 mt-2">
+                    <div class="mb-auto">
+                        <img src="{{ url_for('static', filename='images/author_comment.png') }}" alt=""
+                            style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover;">
+                    </div>
+                    <div>
+                        <h5>{{com.author}}</h5>
+                        <p class="mb-4">{{com.text}}</p>
+                        {% if com.replies %}
+                        {% for rep in com.replies %}
+                        <div class="mt-2 mb-2">
+                            <div class="d-flex justify-content-left align-items-center gap-3 my-1 mt-1">
+                                <div class="mb-auto">
+                                    <img src="{{ url_for('static', filename='images/author_comment.png') }}" alt=""
+                                        style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover;">
+                                </div>
+                                <div>
+                                    <h5>{{rep.author}}</h5>
+                                    <p>{{rep.text}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+</div>
+{% endblock %}

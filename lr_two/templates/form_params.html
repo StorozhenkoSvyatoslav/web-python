@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="caontainer mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 card py-3">
+            <h2 class="mb-3">Авторизация</h2>
+            <form method="POST" action="{{ url_for('form_params') }}" class="auth-form">
+                <div class="d-flex flex-column gap-4 justify-content-around">
+                    <input class="form-control" type="text" placeholder="Логин" name="username" required>
+                    <input class="form-control" type="email" placeholder="Email" name="email" required>
+                    <input class="form-control" type="password" placeholder="Пароль" name="password" required>
+                    <button type="submit" class="btn btn-success">Войти</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if form_data %}
+    <div class="py-5 mt-5 mb-5">
+        <h2 class="py-2">Полученные данные</h2>
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>username</td>
+                    <td>{{form_data.username}}</td>
+                </tr>
+                <tr>
+                    <td>email</td>
+                    <td>{{form_data.email}}</td>
+                </tr>
+                <tr>
+                    <td>password</td>
+                    <td>{{form_data.password}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}
