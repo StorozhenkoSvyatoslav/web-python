@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-4 card py-3 shadow-sm" id="change_password">
+            <h3 class="mb-3 text-center">Смена пароля</h3>
+            <form action="{{ url_for('change_password') }}" method="POST" class="auth-form">
+                {{ form.hidden_tag() if form }}
+                <div class="">
+                    <div class="mb-3">
+                        <label for="old_pw" class="form-label">Старый пароль</label>
+                        <input class="form-control {% if errors.old_pw %}is-invalid{% endif %}" type="password" placeholder="Старый пароль" name="old_pw" id="old_pw" required value="{{ request.form.old_pw or '' }}">
+                        {% if errors.old_pw %}
+                            <div class="invalid-feedback">{{ errors.old_pw }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_pw" class="form-label">Новый пароль</label>
+                        <input class="form-control {% if errors.new_pw %}is-invalid{% endif %}" type="password" placeholder="Новый пароль" name="new_pw" id="new_pw" required value="{{ request.form.new_pw or '' }}">
+                        {% if errors.new_pw %}
+                            <div class="invalid-feedback">{{ errors.new_pw }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-3">
+                        <label for="new_pw_con" class="form-label">Новый пароль (повторно)</label>
+                        <input class="form-control {% if errors.new_pw_con %}is-invalid{% endif %}" type="password" placeholder="Новый пароль (повторно)" name="new_pw_con" id="new_pw_con" required value="{{ request.form.new_pw_con or '' }}">
+                        {% if errors.new_pw_con %}
+                            <div class="invalid-feedback">{{ errors.new_pw_con }}</div>
+                        {% endif %}
+                    </div>
+                    <div class="mb-2 d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary text-center" style="min-width: 5rem;">Сменить пароль</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
