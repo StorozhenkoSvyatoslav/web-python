@@ -1,5 +1,6 @@
 from flask import Flask, render_template, session, request, flash, redirect, url_for
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from urllib.parse import urlparse
 
 app = Flask(__name__)
 applications = app
@@ -47,6 +48,8 @@ def guest_count():
 
 @app.route('/auth', methods=['GET', 'POST'])
 def auth_form():
+    next_page = request.args.get('next') or request.form.get('next')
+
     if request.method == 'POST':
         login = request.form.get('login')
         password = request.form.get('password')
@@ -56,19 +59,25 @@ def auth_form():
         if user and user.password == password:
             login_user(user, remember=remember)
             flash('Вы успешно вошли в систему!', 'success')
-            return(redirect(url_for('index')))
+            if next_page and url_parse(next_page).netloc == '':
+                return redirect(next_page)
+            return redirect(url_for('index'))
         else:
             flash('Неверный логин или пароль!', 'danger')
-            return(render_template('auth.html', method='GET'))
+            return render_template('auth.html', next=next_page)
         
-    return render_template('auth.html')
+    return render_template('auth.html', next=next_page)
 
 @app.route('/logout')
 def logout():
     logout_user()
-    session.clear()
     flash('Вы вышли из аккаунта!', 'info')
     return redirect(url_for('index'))
+
+@app.route('/secret')
+@login_required
+def secret_page():
+    return render_template('secret.html')
 
 @app.route('/profile')
 @login_required

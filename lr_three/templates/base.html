@@ -38,7 +38,13 @@
                         </li>
                         {% if current_user.is_authenticated %}
                         <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{ url_for('secret_page') }}">Секретная страница</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="{{ url_for('my_profile') }}">Профиль</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{ url_for('logout') }}">Выйти</a>
                         </li>
                         {% else %}
                         <li class="nav-item">

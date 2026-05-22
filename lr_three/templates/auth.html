@@ -19,6 +19,7 @@
                         <input type="checkbox" class="form-check-input" id="exampleCheck1" name="rememberme">
                         <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
                     </div>
+                    <input type="hidden" name="next" value="{{ next or '' }}">
                     <button type="submit" class="btn btn-primary">Войти</button>
                 </div>
             </form>
