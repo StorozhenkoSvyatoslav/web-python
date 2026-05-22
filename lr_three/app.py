@@ -18,7 +18,6 @@ class User(UserMixin):
         self.login = login
         self.password = password
         
-# имитируем бд, типо список зарегавшихся юзеров
 users = {
     'user': User(1, 'user', 'qwerty'),
     'user1': User(2, 'user1', 'qwerty1'),
@@ -59,7 +58,7 @@ def auth_form():
         if user and user.password == password:
             login_user(user, remember=remember)
             flash('Вы успешно вошли в систему!', 'success')
-            if next_page and url_parse(next_page).netloc == '':
+            if next_page and urlparse(next_page).netloc == '':
                 return redirect(next_page)
             return redirect(url_for('index'))
         else:
