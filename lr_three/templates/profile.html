@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-3">Ваш профиль</h1>
+    <div class="justify-content-center mb-3">
+        <div class="col-md-6 card py-2 bg-light">
+            <div class="m-2">
+                <h3>Ваш ID: {{user.id}}</h3>
+                <h3>Логин: {{user.login}}</h3>
+            </div>
+                
+        </div>
+        
+    </div>
+    <a href="{{ url_for('logout') }}" class="btn btn-danger">Выйти из аккаунта</a>
+</div>
+{% endblock %}

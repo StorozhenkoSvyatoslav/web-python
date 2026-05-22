@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="card bg-light py-3 col-md-4 text-center">
+            <h3 class="m-auto">Количество посещений</h3>
+            <p class="display-2 mb-0">{{count}}</p>
+            <button class="m-3 btn btn-primary" onclick="location.reload()">Обновить страницу</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

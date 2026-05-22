@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-4 card py-3">
+            <h3 class="mb-3 text-center">Войдите в аккаунт</h3>
+            <form action="{{ url_for('auth_form') }}" method="POST" class="auth-form">
+                <div class="">
+                    <div class="mb-3">
+                        <label for="login" class="form-label">Логин</label>
+                        <input class="form-control" type="text" placeholder="Логин" name="login" id="login" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Пароль</label>
+                        <input class="form-control" type="password" placeholder="Пароль" name="password" id="password" required>
+                    </div>
+                    <div class="mb-3 form-check">
+                        <input type="checkbox" class="form-check-input" id="exampleCheck1" name="rememberme">
+                        <label class="form-check-label" for="exampleCheck1">Запомнить меня</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Войти</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
