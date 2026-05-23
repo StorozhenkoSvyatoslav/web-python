@@ -90,6 +90,9 @@ def reg_form():
                 flash(f'Ошибка при регистрации: {str(e)}', 'danger')
                 
         else:
+            # Выводим flash-сообщение для каждой ошибки
+            for field, error_message in errors.items():
+                flash(error_message, 'danger')
             return render_template('register.html', errors=errors)
         
     return render_template('register.html')
