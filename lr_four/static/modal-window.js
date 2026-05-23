@@ -8,7 +8,15 @@ class ModalManager {
         const modalHeader = document.getElementById('modalHeader')
         const modalBody = document.getElementById('modalMessage')
 
-        modalBody.textContent = msg
+        // Если сообщение содержит переносы строк, преобразуем в HTML список
+        if (msg.includes('\n')) {
+            const errors = msg.split('\n').filter(e => e.trim() !== '')
+            const errorList = errors.map(error => `<div class="text-start">• ${error}</div>`).join('')
+            modalBody.innerHTML = errorList
+        } else {
+            modalBody.textContent = msg
+        }
+
         modalHeader.className = 'modal-header'
         switch(type) {
             case 'success':
@@ -65,8 +73,18 @@ class ModalManager {
             try {
                 const messages = JSON.parse(flashData.dataset.messages || '[]')
                 if (messages.length > 0) {
-                    const [category, message] = messages[messages.length - 1]
-                    this.showMessage(message, category)
+                    // Проверяем категорию первого сообщения
+                    const firstCategory = messages[0][0]
+                    
+                    // Если это ошибки валидации (может быть несколько), собираем их все
+                    if (firstCategory === 'danger' && messages.length > 1) {
+                        const errorMessages = messages.map(msg => msg[1]).join('\n')
+                        this.showMessage(errorMessages, firstCategory)
+                    } else {
+                        // Для остальных случаев показываем последнее сообщение
+                        const [category, message] = messages[messages.length - 1]
+                        this.showMessage(message, category)
+                    }
                 }
             }
             catch (e) {
