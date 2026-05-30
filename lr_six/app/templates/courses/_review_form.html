@@ -1,0 +1,50 @@
+<div class="card shadow-sm mt-4">
+    <div class="card-body my-review">
+        {% if user_review %}
+        <h4 class="card-title mb-3">Ваш отзыв</h4>
+        <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-0">
+                <h6 class="font-weight-bold text-primary fs-5">
+                    {{ user_review.user.first_name }} {{ user_review.user.last_name }}
+                </h6>
+                <small class="text-muted px-2 py-1 rounded">
+                    {{ user_review.created_at.strftime('%d.%m.%Y %H:%M')}}
+                </small>
+            </div>
+
+            <div class="mb-2 rating_block">
+                <span class="text-warning fs-5">
+                    {% for i in range(user_review.rating) %}★{% endfor %}{% for i in range(5 - user_review.rating) %}☆{% endfor %}
+                </span>
+                <span class="ms-2 fw-bold">{{ user_review.rating }}/5</span>
+            </div>
+
+            <p class="card-text text-dark" style="line-height: 1.4;">{{
+                user_review.text }}</p>
+        </div>
+        {% else %}
+        <h4 class="card-title mb-3 text-center">Оставить отзыв</h4>
+        <form action="{{ url_for('courses.create_review', course_id=course.id) }}" method="POST">
+            <div class="mb-3">
+                <label for="rating" class="form-label">Оценка</label>
+                <select name="rating" id="rating" class="form-select">
+                    <option value="5" selected>отлично</option>
+                    <option value="4">хорошо</option>
+                    <option value="3">удовлетворительно</option>
+                    <option value="2">неудовлетворительно</option>
+                    <option value="1">плохо</option>
+                    <option value="0">ужасно</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="text" class="form-label">Текст отзыва</label>
+                <textarea name="text" id="text" rows="4" class="form-control"
+                    placeholder="Поделитесь впечатлениями о курсе..." required></textarea>
+            </div>
+            <div class="text-center">
+                <button type="submit" class="btn btn-success px-5">Отправить отзыв</button>
+            </div>
+        </form>
+        {% endif %}
+    </div>
+</div>

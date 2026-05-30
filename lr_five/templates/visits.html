@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    {% if current_user.has_role('admin') %}
+    <div class="mb-3">
+        <a href="{{ url_for('stats.pages_report') }}" class="btn btn-outline-primary">Отчёт по страницам</a>
+        <a href="{{ url_for('stats.users_report') }}" class="btn btn-outline-primary">Отчёт по пользователям</a>
+    </div>
+    {% endif %}
+
+    {% if pagination %}
+
+    {% if current_user.has_role('user') %}
+        <h2 class="mb-3">Журнал моих посещений</h2>
+    {% else %}
+        <h2 class="mb-3">Журнал посещений</h2>
+    {% endif %}
+    
+    <table class="table table-light table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Пользователь</th>
+                <th scope="col">Страница</th>
+                <th scope="col">Дата</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for visit in pagination.items %}
+            <tr>
+                <th scope="row">{{ (pagination.page - 1) * pagination.per_page + loop.index }}</th>
+                <td>
+                    {% if visit.users %}
+                    {{visit.users.last_name}} {{visit.users.first_name}} {{visit.users.middle_name or ''}}
+                    {% else %}
+                    <span class="text-muted">Неаутентифицированный пользователь</span>
+                    {% endif %}
+                </td>
+                <td><code>{{visit.path}}</code></td>
+                <td>{{ visit.created_at.strftime('%d.%m.%Y %H:%M:%S') }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item {{ 'disabled' if not pagination.has_prev }}">
+                <a class="page-link"
+                    href="{{ url_for('stats.visits_report', page=pagination.prev_num) if pagination.has_prev else '#' }}"><i
+                        class="bi bi-arrow-left-circle"></i></a>
+            </li>
+
+            {% for page_num in pagination.iter_pages(left_edge=1, right_edge=1, left_current=1, right_current=1) %}
+            {% if page_num %}
+            <li class="page-item {{ 'active' if page_num == pagination.page }}">
+                <a class="page-link" href="{{ url_for('stats.visits_report', page=page_num) }}">{{ page_num }}</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">...</span></li>
+            {% endif %}
+            {% endfor %}
+
+            <li class="page-item {{ 'disabled' if not pagination.has_next }}">
+                <a class="page-link"
+                    href="{{ url_for('stats.visits_report', page=pagination.next_num) if pagination.has_next else '#' }}"><i
+                        class="bi bi-arrow-right-circle"></i></a>
+            </li>
+        </ul>
+    </nav>
+    {% else %}
+    <h2 class="danger">Остуствуют записи</h2>
+    {% endif %}
+</div>
+{% endblock %}

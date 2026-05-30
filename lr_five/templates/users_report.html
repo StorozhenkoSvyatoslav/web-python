@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4 mb-5">
+    <div class="mb-2">
+        <a href="{{ url_for('stats.visits_report') }}" class="return_back"><i class="bi bi-arrow-left"></i> Вернуться</a>
+    </div>
+    <h2 class="mb-3">Статистика пользователей</h2>
+    <table class="table table-light table-hover">
+        <thead class="table-primary">
+            <tr>
+                <th scope="col">№</th>
+                <th scope="col">Пользователь</th>
+                <th scope="col">Количество посещений</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in report_data %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ item['name'] }}</td>
+                <td>{{ item['count'] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <a href="{{ url_for('stats.users_report', export='csv') }}" class="btn btn-success">Экспорт в CSV</a>
+</div>
+
+{% endblock %}

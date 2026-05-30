@@ -1,0 +1,110 @@
+.logo {
+    max-width: 175px;
+}
+
+.profile {
+    max-width: 45px;
+}
+
+.background-preview {
+    border: 3px dashed grey;
+    flex-grow: 1;
+}
+
+.title-area {
+    background-color: black;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    font-size: 1.5rem;
+    min-height: calc(75vh);
+}
+
+.courses-list .row:hover {
+    cursor: pointer;
+    border: 1px solid black !important;
+}
+
+.course-logo {
+    min-width: 170px;
+    width: 100%;
+    height: 170px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+
+.navbar-brand {
+    transition: 0.2s ease;
+}
+
+.navbar-brand:hover {
+    transform: scale(1.02);
+}
+
+.title-area>div {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+.btn-go-course {
+    transition: transform 0.2s ease, width 1s ease;
+    width: 350px;
+}
+
+.btn-go-course:hover {
+    transform: scale(1.05);
+    width: 700px;
+}
+
+.no-review-card {
+    background-color: rgb(241, 241, 241);
+}
+
+.course-card {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0px 0px 11px 0px rgba(34, 60, 80, 0.12);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.course-card:hover {
+    box-shadow: 0px 0px 16px 0px rgba(34, 60, 80, 0.18);
+}
+
+.course-card::before {
+    content: '';
+    color: rgb(255, 255, 255);
+    background-color: rgb(31, 34, 37);
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    top: 0;
+    padding: 0px 0px;
+    border-radius: 50% 0 0 50%;
+    opacity: 0;
+    z-index: 999;
+    transition: all 0.5s ease;
+}
+
+.course-card:hover::before {
+    opacity: 1;
+    padding: 0px 8px;
+}
+
+.rating {
+    font-size: 24px;
+}
+
+.card-review {
+    box-shadow: 0px 0px 11px 0px rgba(34, 60, 80, 0.12);
+}
+
+.my-review {
+    background-color: rgb(245, 248, 255);
+}
+
+.rating_block {
+}

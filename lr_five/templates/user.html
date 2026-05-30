@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="mb-2">
+        <a href="{{ url_for('index') }}" class="return_back"><i class="bi bi-arrow-left"></i> Вернуться ко всем пользователям</a>
+    </div>
+    
+{% if not user %}
+<div class="card bg-light p-5">
+    <h2 class="text-center">Кажется... Пользователь не найден!</h2>
+</div>
+{% else %}
+<div class="card bg-light p-5">
+    <h2 class="text-center mb-5">Информация о пользователе №{{user.id}}</h2>
+    <table class="table table-light table-hover table-bordered text-center">
+        <thead class="table-primary">
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Логин</th>
+                <th scope="col">Фамилия</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Отчество</th>
+                <th scope="col">Роль</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{user.id}}</td>
+                <td>{{user.login}}</td>
+                <td>{{user.last_name}}</td>
+                <td>{{user.first_name}}</td>
+                <td>{{user.middle_name or '-'}}</td>
+                <td>{{user.role_ref.name or '-'}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{% endif %}
+</div>
+
+{% endblock %}

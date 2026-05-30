@@ -1,0 +1,87 @@
+{% macro render_user_form(form, is_create=true, submit_text='Сохранить') %}
+<form method="POST" class="auth-form">
+    {{ form.hidden_tag() }}
+
+    {% if is_create %}
+    <div class="mb-3">
+        {{ form.login.label(class="form-label") }}
+        {{ form.login(
+            placeholder="Логин",
+            class="form-control" ~ (" is-invalid" if form.login.errors else ""),
+            **{"aria-describedby": "loginFeedback" if form.login.errors else ""}
+        ) }}
+        {% if form.login.errors %}
+            <div id="loginFeedback" class="invalid-feedback d-block">
+                {% for error in form.login.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.password.label(class="form-label") }}
+        {{ form.password(
+            placeholder="Пароль",
+            class="form-control" ~ (" is-invalid" if form.password.errors else ""),
+            **{"aria-describedby": "passwordFeedback" if form.password.errors else ""}
+        ) }}
+        {% if form.password.errors %}
+            <div id="passwordFeedback" class="invalid-feedback d-block">
+                {% for error in form.password.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <div class="mb-3">
+        {{ form.last_name.label(class="form-label") }}
+        {{ form.last_name(
+            placeholder="Фамилия",
+            class="form-control" ~ (" is-invalid" if form.last_name.errors else ""),
+            **{"aria-describedby": "last_nameFeedback" if form.last_name.errors else ""}
+        ) }}
+        {% if form.last_name.errors %}
+            <div id="last_nameFeedback" class="invalid-feedback d-block">
+                {% for error in form.last_name.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.first_name.label(class="form-label") }}
+        {{ form.first_name(
+            placeholder="Имя",
+            class="form-control" ~ (" is-invalid" if form.first_name.errors else ""),
+            **{"aria-describedby": "first_nameFeedback" if form.first_name.errors else ""}
+        ) }}
+        {% if form.first_name.errors %}
+            <div id="first_nameFeedback" class="invalid-feedback d-block">
+                {% for error in form.first_name.errors %}
+                    {{ error }}<br>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="mb-3">
+        {{ form.middle_name.label(class="form-label") }}
+        {{ form.middle_name(class="form-control", placeholder="Отчество (необязательно)") }}
+    </div>
+
+    <div class="mb-3">
+        {{ form.role_id.label(class="form-label") }}
+        {{ form.role_id(class="form-select") }}
+    </div>
+
+    <div class="d-flex justify-content-center mt-4">
+    <button type="submit" class="btn btn-primary px-5">
+        {{ submit_text }}
+    </button>
+</div>
+</form>
+{% endmacro %}
